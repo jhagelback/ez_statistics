@@ -9,6 +9,10 @@
           gtag('js', new Date());
 
           gtag('config', 'UA-131282143-1');
+
+          function set_version() {
+            document.getElementById('version').innerHTML = VERSION;
+          }
         </script>
         
         <meta charset="utf-8">
@@ -16,14 +20,17 @@
         <title>EZ Statistics</title>
         <meta name="description" content="EZ Statistics">
         <link rel="stylesheet" href="style/stats.css">
+        <script src="ezstatistics-0.30.js"></script>
     </head>
-    <body>
+    <body onload="set_version()">
         <center><img class="round" src="style/logo.png" height="105"/></center>
         <br/>
         
         <div class="smalltext">
-            <b>EZ Statistics</b> is a web service with the goal of making statistical testing easy. It supports a range of the most commonly used parametric and non-parametric tests.
+            <b>EZ Statistics</b> is a web tool with the goal of making statistical testing easy. It supports a range of the most commonly used parametric and non-parametric tests.
             <br>
+            <br>
+            Library version: <span id="version" style="color:red; font-weight: bold;"></span>
             
             <div class="label16">
                 <h3 class="f16">&nbsp;What do you want to do?</h3>

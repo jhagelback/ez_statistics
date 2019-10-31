@@ -2,6 +2,7 @@
 
 /* Library version */
 var VERSION = "0.30";
+
 /*****************************************************
 
 Functions for statistical tests.
@@ -2054,6 +2055,7 @@ function find_outlier(vc) {
     }
     return index;
 }
+
 /*****************************************************
 
 Functions for calculating statistical power.
@@ -2367,6 +2369,7 @@ function calc_min_samplesize_1s(v1, mean, sides, alpha, power, parametric) {
     
     return n;
 }
+
 /*****************************************************
 
 Functions for generating and displaying distributions.
@@ -2652,6 +2655,7 @@ function visualize_dist(vals) {
         throw(e);
     }
 }
+
 /*****************************************************
 
 Util functions.
@@ -3154,6 +3158,7 @@ function visualize_correlation(x_vals, y_vals) {
     
     Plotly.newPlot("chart", data, layout);
 }
+
 /*****************************************************
 
 Main functions for running statistical tests.
@@ -4638,6 +4643,7 @@ function run_shapirowilk() {
         show_error(e);
     }
 }
+
 /*****************************************************
 
 Demonstration of central limit theorem.
