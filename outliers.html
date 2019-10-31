@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131282143-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-131282143-1');
+        </script>
+        
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>EZ Statistics: Outliers</title>
+        <meta name="description" content="EZ Statistics Outliers">
+        <link rel="stylesheet" href="style/stats.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="jstat.js"></script>
+        <script src="ezstatistics-0.30.js"></script>
+    </head>
+    <body>
+        <center><img class="round" src="style/logo.png" height="105"/></center>
+        <div style="text-align: right"><a href="index.html">Back to main page</a></div>
+        
+        <h3 class="f18b">Generalized Extreme Studentized (ESD) test</h3>
+        Finds potential outliers in a sample.
+        <br>
+        
+        <div class="smalltext">
+            
+            <div class="label16">
+                <h3 class="f16">&nbsp;Data Entry</h3>
+            </div>
+            <br/>
+        
+            <table>
+                <tr>
+                    <td>Sample:</td>
+                    <td><input class="sample" name="sampA" id="samp1" value="145, 125, 190, 135, 220, 130, 210, 3, 165, 165, 150, 350, 170, 180, 195, 440, 215, 135, 410, 40, 140, 175"></td>
+                <tr/>
+                <tr>
+                    <td>Significance level α:&nbsp;</td>
+                    <td><input class="value" name="alpha" id="alpha" value="0.05"></td>
+                </tr>
+                <tr>
+                    <td>Upload CSV file:</td>
+                    <td>
+                        <input type="file" name="File Upload" id="txtFileUpload" accept=".csv" />
+                    </td>
+                </tr>
+            </table>
+            
+            <br>
+            <button class="test" onclick="javascript:find_outliers()">Run Test</button>&nbsp;&nbsp;
+            <button class="clear" onclick="javascript:clear_fields(1)">Clear</button>
+
+            <div id="error">
+            </div>
+        
+            <div id="test_results" style="display: none;">
+                <div class="label16">
+                    <h3 class="f16">&nbsp;Test Result</h3>
+                </div>
+                <br/>
+
+                <table class="border">
+                    <thead>
+                        <tr>
+                            <th colspan=4 class="dark">Data Summary</th>
+                        </tr>
+                        <tr>
+                            <th class="dark" width="70">Sample</th>
+                            <th class="dark" width="40">N</th>
+                            <th class="dark" width="80">Mean</th>
+                            <th class="dark" width="80">Stdev</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th class="dark">A</th>
+                            <td class="border" id="n1">&nbsp;</td>
+                            <td class="border" id="mean1">&nbsp;</td>
+                            <td class="border" id="stdev1">&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+                &nbsp;<br>
+                <div id="trials_tab">
+                    <table class="border" width="450">
+                        <thead>
+                            <tr>
+                                <th class="dark" colspan="5">Result</th>
+                            </tr>
+                            <tr>
+                                <th class="dark">Trial</th>
+                                <th class="dark">Outlier</th>
+                                <th class="dark">G-score</th>
+                                <th class="dark">Critical G</th>
+                                <th class="dark">Significant</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trials">
+                            
+                        </tbody>
+                    </table>
+                </div>
+                &nbsp;<br>
+                <div id="restext">&nbsp;</div>
+                <table class="border" width="650">
+                    <thead>
+                        <tr>
+                            <th colspan=3 class="dark">Sample</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border" id="vals">&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div id="viz">
+                    <div class="label16">
+                        <h3 class="f16">&nbsp;Data Visualization</h3>
+                    </div>
+                    <div id="chart"></div>
+                </div>
+                
+            </div>
+        </div>
+    </body>
+</html>
+

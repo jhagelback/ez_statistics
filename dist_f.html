@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131282143-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-131282143-1');
+        </script>
+        
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>EZ Statistics: F-distribution</title>
+        <meta name="description" content="EZ Statistics F-distribution">
+        <link rel="stylesheet" href="style/stats.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="jstat.js"></script>
+        <script src="ezstatistics-0.30.js"></script>
+    </head>
+    <body>
+        <center><img class="round" src="style/logo.png" height="105"/></center>
+        <div style="text-align: right"><a href="index.html">Back to main page</a></div>
+        
+        <h3 class="f18b">F-distribution Visualization</h3>
+        
+        <div class="smalltext">
+            
+            <table>
+                <tr>
+                    <td width="80">DF<sub>numerator</sub>:</td>
+                    <td width="130"><input class="value" name="df1" id="df1" value="5"></td>
+                </tr>
+                <tr>
+                    <td width="80">DF<sub>denominator</sub>:</td>
+                    <td width="130"><input class="value" name="df2" id="df2" value="10"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><button class="test" onclick="javascript:dist_f()">Generate</button></td>
+                <tr/>
+            </table>
+            
+            <br>
+            
+            <div id="error">
+            </div>
+            
+            <div id="viz" style="display: none;">
+                <div class="label16">
+                    <h3 class="f16">&nbsp;Distribution</h3>
+                </div>
+                <div id="chart"></div>
+                
+                <br>
+                
+                The table shows the probability of getting an F-ratio this large or larger.<br>&nbsp;
+                
+                <table><tr><td style="vertical-align: top;" width="160">
+                    
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="dark" width="60">F</th>
+                            <th class="dark" width="60">Prob</th>
+                        </tr>
+                    </thead>
+                    <tbody id="p1"></tbody>
+                </table>
+                
+                </td><td style="vertical-align: top;" width="160">
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="dark" width="60">F</th>
+                            <th class="dark" width="60">Prob</th>
+                        </tr>
+                    </thead>
+                    <tbody id="p2"></tbody>
+                </table>
+                
+                </td></tr></table>
+                
+            </div>
+
+        </div>
+    </body>
+</html>
+

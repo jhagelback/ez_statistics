@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131282143-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-131282143-1');
+        </script>
+        
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>EZ Statistics: normal distribution</title>
+        <meta name="description" content="EZ Statistics Normal distribution">
+        <link rel="stylesheet" href="style/stats.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="jstat.js"></script>
+        <script src="ezstatistics-0.30.js"></script>
+    </head>
+    <body>
+        <center><img class="round" src="style/logo.png" height="105"/></center>
+        <div style="text-align: right"><a href="index.html">Back to main page</a></div>
+        
+        <h3 class="f18b">Normal distribution Visualization</h3>
+        
+        <div class="smalltext">
+            
+            <table>
+                <tr>
+                    <td width="115">Mean:</td>
+                    <td width="130"><input class="value" name="mean" id="mean" value="0"></td>
+                </tr>
+                <tr>
+                    <td width="115">Standard deviation:</td>
+                    <td width="130"><input class="value" name="stdev" id="stdev" value="1"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><button class="test" onclick="javascript:dist_norm()">Generate</button></td>
+                <tr/>
+            </table>
+            
+            <br>
+            
+            <div id="error">
+            </div>
+            
+            <div id="viz" style="display: none;">
+                <div class="label16">
+                    <h3 class="f16">&nbsp;Distribution</h3>
+                </div>
+                <div id="chart"></div>
+            
+                <br>
+                
+                <table><tr><td style="vertical-align: top;" width="250">
+                    
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="dark" colspan="2"></th>
+                            <th class="dark" colspan="2">P</th>
+                        </tr>
+                        <tr>
+                            <th class="dark" width="45">Left</th>
+                            <th class="dark" width="45">Right</th>
+                            <th class="dark" width="60">1 tail</th>
+                            <th class="dark" width="60">2 tail</th>
+                        </tr>
+                    </thead>
+                    <tbody id="p1"></tbody>
+                </table>
+                
+                </td><td style="vertical-align: top;" width="250">
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="dark" colspan="2"></th>
+                            <th class="dark" colspan="2">P</th>
+                        </tr>
+                        <tr>
+                            <th class="dark" width="45">Left</th>
+                            <th class="dark" width="45">Right</th>
+                            <th class="dark" width="60">1 tail</th>
+                            <th class="dark" width="60">2 tail</th>
+                        </tr>
+                    </thead>
+                    <tbody id="p2"></tbody>
+                </table>
+                
+                </td></tr></table>
+                
+            </div>
+        </div>
+    </body>
+</html>
+

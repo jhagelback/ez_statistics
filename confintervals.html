@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131282143-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-131282143-1');
+        </script>
+        
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>EZ Statistics: Confidence Intervals</title>
+        <meta name="description" content="EZ Statistics Confidence Intervals">
+        <link rel="stylesheet" href="style/stats.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="jstat.js"></script>
+        <script src="ezstatistics-0.30.js"></script>
+    </head>
+    <body>
+        <center><img class="round" src="style/logo.png" height="105"/></center>
+        <div style="text-align: right"><a href="index.html">Back to main page</a></div>
+        
+        <h3 class="f18b">Confidence Intervals</h3>
+        Calculates confidence intervals for a sample.
+        
+        <div class="smalltext">
+            
+            <div class="label16">
+                <h3 class="f16">&nbsp;Data Entry</h3>
+            </div>
+            <br/>
+        
+            <table>
+                <tr>
+                    <td>Sample:</td>
+                    <td><input class="sample" name="sampA" id="samp1" value="3.9, 4.6, 15.6, 10.5, 16.0, 6.7, 12.0, 9.2, 13.8, 16.8"></td>
+                <tr/>
+                <tr>
+                    <td>Upload CSV file:</td>
+                    <td>
+                        <input type="file" name="File Upload" id="txtFileUpload" accept=".csv" />
+                    </td>
+                </tr>
+            </table>
+            
+            <br>
+            <button class="test" onclick="javascript:calc_confidence_intervals()">Calculate</button>&nbsp;&nbsp;
+            <button class="clear" onclick="javascript:clear_fields(1)">Clear</button>
+
+            <div id="error">
+            </div>
+        
+            <div id="test_results" style="display: none;">
+                <div class="label16">
+                    <h3 class="f16">&nbsp;Result</h3>
+                </div>
+                <br/>
+
+                <table class="border">
+                    <thead>
+                        <tr>
+                            <th colspan=4 class="dark">Data Summary</th>
+                        </tr>
+                        <tr>
+                            <th class="dark" width="70">Sample</th>
+                            <th class="dark" width="40">N</th>
+                            <th class="dark" width="80">Mean</th>
+                            <th class="dark" width="80">Stdev</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th class="dark">A</th>
+                            <td class="border" id="n">&nbsp;</td>
+                            <td class="border" id="mean">&nbsp;</td>
+                            <td class="border" id="stdev">&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+                &nbsp;<br>
+                <table class="border" width="650">
+                    <thead>
+                        <tr>
+                            <th colspan=3 class="dark">Confidence Intervals</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th class="dark" colspan=3>90%</th>
+                        </tr>
+                        <tr>
+                            <td class="border" id="ci90a">&nbsp;</td>
+                            <td class="border" id="ci90b">&nbsp;</td>
+                            <td class="border" id="ci90c">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <th class="dark" colspan=3>95%</th>
+                        </tr>
+                        <tr>
+                            <td class="border" id="ci95a">&nbsp;</td>
+                            <td class="border" id="ci95b">&nbsp;</td>
+                            <td class="border" id="ci95c">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <th class="dark" colspan=3>98%</th>
+                        </tr>
+                        <tr>
+                            <td class="border" id="ci98a">&nbsp;</td>
+                            <td class="border" id="ci98b">&nbsp;</td>
+                            <td class="border" id="ci98c">&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div id="viz">
+                    <div class="label16">
+                        <h3 class="f16">&nbsp;Data Visualization</h3>
+                    </div>
+                    <div id="chart"></div>
+                </div>
+                
+            </div>
+        </div>
+    </body>
+</html>
+

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131282143-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-131282143-1');
+        </script>
+        
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>EZ Statistics</title>
+        <meta name="description" content="EZ Statistics">
+        <link rel="stylesheet" href="style/stats.css">
+    </head>
+    <body>
+        <center><img class="round" src="style/logo.png" height="105"/></center>
+        <br/>
+        
+        <div class="smalltext">
+            <b>EZ Statistics</b> is a web service with the goal of making statistical testing easy. It supports a range of the most commonly used parametric and non-parametric tests.
+            <br>
+            
+            <div class="label16">
+                <h3 class="f16">&nbsp;What do you want to do?</h3>
+            </div>
+            
+            <div class="label14">
+                <h3 class="f14">&nbsp;&nbsp;&nbsp;- Check if there is a difference between the means of samples</h3>
+            </div>
+            <br/>
+            
+            There are several tests and which one to use depends on the properties of your data and the setup of your study:
+            <ul>
+                <li><b>Independent or paired samples:</b><br>
+                    This depends on the setup of your study. Consider an example where you want to know if a Volvo is as comfortable as an Audi. You have 40 participants in your study. The independent approach is if you let 20 participants test the Volvo and fill in a questionnaire, and the other 20 participants test the Audi and fill in a questionnaire. The paired (dependent) approach is if all 40 participants first test the Volvo and fill in a questionnaire, then test the Audi and fill in a questionnaire. Another example of a dependent approach is if you measure the same variable several times (repeated measurements), for example the effect of a treatment is measured every month for a year.
+                </li>
+                <li><b>Equal or unequal variances:</b><br>
+                    If the variances of the samples differ significantly, you shall use a test for unequal variances. You can check if two samples have equal variances or not using the <a href="ftest.html">F-test for equal variances</a>. If you have three or more samples, use the <a href="bartlett.html">Bartlett's test for equal variances</a> instead.
+                <li><b>Normally or not normally distributed samples:</b><br>
+                    Generally, parametric tests require that your samples are normally distributed. If one or more sample is not normally distributed, consider using a non-parametric test instead. Note that many parametric tests are fairly robust to not normally distributed samples, so unless the samples are severely non-normal you can still use the parametric tests. You can check if a sample is normally distributed using the <a href="shapiro_wilk.html">Shapiro-Wilk Expanded test</a>.
+                </li>
+            </ul>
+            
+            Use the following tables to find out which test to use:
+            <br>&nbsp;
+            
+            <center>
+                <table class="border">
+                    <thead>
+                        <tr>
+                            <th colspan=4 class="dark"><span class="theader">Parametric tests</span><br>Requires that the samples are normally distributed</th>
+                        </tr>
+                        <tr>
+                            <th class="dark" width="150">Number of samples</th>
+                            <th class="dark" width="120">Variance?</th>
+                            <th class="dark" width="120">Dependency?</th>
+                            <th class="dark" width="300">Use the following test</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border">1 (and a specified mean)</td>
+                            <td class="border">-</td>
+                            <td class="border">-</td>
+                            <td class="border"><a href="ttest_single.html">T-test (single sample)</a></td>
+                        </tr>
+                        <tr>
+                            <td class="border">2</td>
+                            <td class="border">Equal</td>
+                            <td class="border">Independent</td>
+                            <td class="border"><a href="ttest.html?type=0">T-test (independent, equal variances)</a></td>
+                        </tr>
+                        <tr>
+                            <td class="border">2</td>
+                            <td class="border">Unequal</td>
+                            <td class="border">Independent</td>
+                            <td class="border"><a href="ttest.html?type=1">T-test (independent, unequal variances)</a></td>
+                        </tr>
+                        <tr>
+                            <td class="border">2</td>
+                            <td class="border">-</td>
+                            <td class="border">Dependent</td>
+                            <td class="border"><a href="ttest.html?type=2">T-test (paired)</a></td>
+                        </tr>
+                        <tr>
+                            <td class="border">3 or more</td>
+                            <td class="border">Equal</td>
+                            <td class="border">Independent</td>
+                            <td class="border"><a href="anova.html">One-way ANOVA</a></td>
+                        </tr>
+                        <tr>
+                            <td class="border">3 or more</td>
+                            <td class="border"></td>
+                            <td class="border">Dependent</td>
+                            <td class="border"><a href="anova_rm.html">Repeated Measures ANOVA</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>&nbsp;
+                <table class="border">
+                    <thead>
+                        <tr>
+                            <th colspan=4 class="dark"><span class="theader">Non-parametric tests</span><br>Does not require that the samples are normally distributed</th>
+                        </tr>
+                        <tr>
+                            <th class="dark" width="150">Number of samples</th>
+                            <th class="dark" width="120">Variance?</th>
+                            <th class="dark" width="120">Dependency?</th>
+                            <th class="dark" width="300">Use the following test</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border">1 (and a specified mean)</td>
+                            <td class="border">-</td>
+                            <td class="border">-</td>
+                            <td class="border"><a href="wilcoxon_single.html">Wilcoxon Signed-Ranks (single sample)</a></td>
+                        </tr>
+                        <tr>
+                            <td class="border">2</td>
+                            <td class="border">-</td>
+                            <td class="border">Independent</td>
+                            <td class="border"><a href="wilcoxon.html?type=0">Wilcoxon Rank-Sum test</a></td>
+                        </tr>
+                        <tr>
+                            <td class="border">2</td>
+                            <td class="border">-</td>
+                            <td class="border">Dependent</td>
+                            <td class="border"><a href="wilcoxon.html?type=1">Wilcoxon Signed-Ranks test</a></td>
+                        </tr>
+                        <tr>
+                            <td class="border">3 or more</td>
+                            <td class="border">-</td>
+                            <td class="border">Independent</td>
+                            <td class="border"><a href="kruskalwallis.html">Kruskal-Wallis test</a></td>
+                        </tr>
+                        <tr>
+                            <td class="border">3 or more</td>
+                            <td class="border"></td>
+                            <td class="border">Dependent</td>
+                            <td class="border"><a href="friedman.html">Friedman test</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </center>
+            <br>
+            
+            <div class="label14">
+                <h3 class="f14">&nbsp;&nbsp;&nbsp;- Calculate correlation and regression</h3>
+            </div>
+            
+            <ul>
+                    <li>Calculate the <a href="correlation.html">relationship (correlation)</a> between two samples.</li>
+                    <li>Calculate <a href="linearregression.html">line of best fit (basic linear regression)</a> between two samples.</li>
+            </ul>
+            
+            <div class="label14">
+                <h3 class="f14">&nbsp;&nbsp;&nbsp;- Find outliers</h3>
+            </div>
+            
+            <ul>
+                    <li>Find <a href="outliers.html">outliers</a> using the Generalized Extreme Studentized (ESD) test.</li>
+            </ul>
+            
+            <div class="label14">
+                <h3 class="f14">&nbsp;&nbsp;&nbsp;- Find condfidence intervals</h3>
+            </div>
+            
+            <ul>
+                    <li>Calculate <a href="confintervals.html">confidence intervals</a> for a sample.</li>
+            </ul>
+            
+            <div class="label14">
+                <h3 class="f14">&nbsp;&nbsp;&nbsp;- Visualizing distributions</h3>
+            </div>
+            <ul>
+                    <li><a href="dist_t.html">t-distribution</a></li>
+                    <li><a href="dist_f.html">F-distribution</a></li>
+                    <li><a href="dist_chi2.html">Chi-Square distribution</a></li>
+                    <li><a href="dist_norm.html">Normal distribution</a></li>
+                    <li>Demonstration of the <a href="centrallimit.html">Central Limit Theorem</a></li>
+            </ul>
+            
+        </div>
+    </body>
+</html>
+

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131282143-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-131282143-1');
+        </script>
+        
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>EZ Statistics: Wilcoxon single sample</title>
+        <meta name="description" content="EZ Statistics wilcoxon single sample">
+        <link rel="stylesheet" href="style/stats.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="jstat.js"></script>
+        <script src="ezstatistics-0.30.js"></script>
+    </head>
+    <body>
+        <center><img class="round" src="style/logo.png" height="105"/></center>
+        <div style="text-align: right"><a href="index.html">Back to main page</a></div>
+        
+        <h3 class="f18b">Wilcoxon signed-ranks, single sample for the mean</h3>
+        
+        Tests the hypotheses:
+        <table>
+            <tr>
+                <th class="dark" width="110">H<sub>0</sub></th>
+                <td class="border">There is no difference between the mean of the sample and the specified mean&nbsp;&nbsp;</td>
+            </tr>
+            <tr>
+                <th class="dark">H<sub>1</sub> (two-tailed)</th>
+                <td class="border">The mean of the sample is different than the specified mean&nbsp;&nbsp;</td>
+            </tr>
+            <tr>
+                <th class="dark">H<sub>1</sub> (one-tailed)</th>
+                <td class="border">The mean of the sample is either less than or greater than the specified mean&nbsp;&nbsp;</td>
+            </tr>
+        </table>
+        
+        <div class="smalltext">
+            
+            <div class="label16">
+                <h3 class="f16">&nbsp;Test Hypothesis</h3>
+            </div>
+            <br/>
+            <form action="" id="testtype">
+                <input class="type" type="radio" name="hyp" id="1" value="1" checked>&nbsp;<b>≠</b>&nbsp;&nbsp;The mean of sample is different than the specified mean (two-tailed)<br>
+                <input class="type" type="radio" name="hyp" id="2" value="2">&nbsp;<b>&#60;</b>&nbsp;&nbsp;The mean of sample is less than the specified mean (one-tailed)<br>
+                <input class="type" type="radio" name="hyp" id="3" value="3">&nbsp;<b>&#62;</b>&nbsp;&nbsp;The mean of sample is greater than the specified mean (one-tailed)
+            </form>
+            
+            <div class="label16">
+                <h3 class="f16">&nbsp;Data Entry</h3>
+            </div>
+            <br/>
+        
+            <table>
+                <tr>
+                    <td>Sample:</td>
+                    <td><input class="sample" name="sampA" id="samp1" value="2128.7, 2679.1, 1317.2, 1001.3, 1107.6, 718.4, 787.4, 1562.3, 1356.9, 1153.2, 1167.1, 1387.5, 679.9, 1323.2, 788.4, 1153.6, 1423.3, 1122.6, 1644.3, 737.4"></td>
+                <tr/>
+                <tr>
+                    <td>Mean:</td>
+                    <td><input class="value" name="spmean" id="spmean" value="1000.0"></td>
+                <tr/>
+                <tr>
+                    <td>Significance level α:&nbsp;</td>
+                    <td><input class="value" name="alpha" id="alpha" value="0.05"></td>
+                </tr>
+                <tr>
+                    <td>Upload CSV file:</td>
+                    <td>
+                        <input type="file" name="File Upload" id="txtFileUpload" accept=".csv" />
+                    </td>
+                </tr>
+            </table>
+            
+            <br>
+            <button class="test" onclick="javascript:run_wilcoxon_single()">Run Test</button>&nbsp;&nbsp;
+            <button class="clear" onclick="javascript:clear_fields(1)">Clear</button>
+
+            <div id="error">
+            </div>
+        
+            <div id="test_results" style="display: none;">
+                <div class="label16">
+                    <h3 class="f16">&nbsp;Test Result</h3>
+                </div>
+                <br/>
+
+                <table class="border">
+                    <thead>
+                        <tr>
+                            <th colspan=4 class="dark">Data Summary</th>
+                        </tr>
+                        <tr>
+                            <th class="dark" width="70">Sample</th>
+                            <th class="dark" width="40">N</th>
+                            <th class="dark" width="100">Mean</th>
+                            <th class="dark" width="100">Stdev</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th class="dark">A</th>
+                            <td class="border" id="n1">&nbsp;</td>
+                            <td class="border" id="mean1">&nbsp;</td>
+                            <td class="border" id="stdev1">&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br/>&nbsp;
+                <table class="border">
+                    <thead>
+                        <tr>
+                            <th class="dark" width="550" colspan="2">Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="dark" width="130"><b>Mean<sub>A</sub> - mean:</b></td>
+                            <td class="border" width="420" id="mean">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="dark"><b>Significance level α:</b></td>
+                            <td class="border" id="sign_level">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="dark"><b>P-value:</b></td>
+                            <td class="border" id="p">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="dark"><b>Score:</b></td>
+                            <td class="border" id="r">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="dark"><b>Result:</b></td>
+                            <td class="border" id="res">&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div id="power">
+                    <div class="label16">
+                        <h3 class="f16">&nbsp;Power Analysis&nbsp;&nbsp;&nbsp;&nbsp;<button class="help" onclick="javascript:toggle('pahelp')";>?</button></h3>
+                    </div>
+                    <div id="pahelp" style="display: none;">
+                        <br>
+                        The first table shows the minimum required sample sizes for low, medium and high statistical power respectively.
+                        The second table shows the current statistical power for the samples and test type.
+                    </div>
+                    &nbsp;<br>
+
+                    <table class="border">
+                        <thead>
+                            <tr>
+                                <th colspan=3 class="dark">Required sample sizes</th>
+                            </tr>
+                            <tr>
+                                <th class="dark" width="120">Power</th>
+                                <th class="dark" width="150">Min sample size</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border">Low (20%)</td>
+                                <td class="border" id="n_low">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="border">Medium (50%)</td>
+                                <td class="border" id="n_medium">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="border">High (80%)</td>
+                                <td class="border" id="n_high">&nbsp;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    &nbsp;<br>
+                    <table class="border">
+                        <thead>
+                            <tr>
+                                <th class="dark" width="150">Current power</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border" id="pwr">&nbsp;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div id="assumptions">
+                    <div class="label16">
+                        <h3 class="f16">&nbsp;Check test assumptions&nbsp;&nbsp;&nbsp;&nbsp;<button class="help" onclick="javascript:toggle('ashelp')";>?</button></h3>
+                    </div>
+                    <div id="ashelp" style="display: none;">
+                        <br>
+                        The test does not require that the sample is normally distributed. If it is, consider using <a href="ttest_single.html">T-test for single sample</a> instead.
+                        Note that the normality test is not entirely accurate for sample sizes under 20.
+                    </div>
+                    &nbsp;<br>
+                    
+                    <div id="normtest">
+                        <table class="border">
+                            <thead>
+                                <tr>
+                                    <th class="dark" width="550" colspan="2">Shapiro-Wilk test for normally distributed samples</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="dark" colspan="2"><center><b>Sample</b></center></td>
+                                </tr>
+                                <tr>
+                                    <td class="dark" width="100"><b>Result:</b></td>
+                                    <td class="border" id="sw_res_1">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td class="dark"><b>P-value:</b></td>
+                                    <td class="border" id="sw_p_1">&nbsp;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div id="viz">
+                    <div class="label16">
+                        <h3 class="f16">&nbsp;Data Visualization</h3>
+                    </div>
+                    <div id="chart"></div>
+                </div>
+                
+            </div>
+        </div>
+    </body>
+</html>
+

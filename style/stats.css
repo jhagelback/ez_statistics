@@ -1,0 +1,183 @@
+html {
+    background: #e6e9e9;
+    background-image: linear-gradient(270deg, rgb(230, 233, 233) 0%, rgb(216, 221, 221) 100%);
+    -webkit-font-smoothing: antialiased;
+}
+
+table {
+    border: 0px solid;
+    padding: 0px;
+}
+
+li {
+    margin: 0 0 3px 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #222;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+h2 {
+    margin-top: 1.3em;
+}
+
+a {
+    color: #0083e8;
+    text-decoration: none;
+}
+
+b, strong {
+    font-weight: 600;
+}
+
+samp {
+    display: none;
+}
+
+img.round {
+    border-radius: 4px;
+}
+
+.border {
+    border: 1px solid #aaaaaa;
+}
+
+input.sample {
+    width: 500px;
+}
+
+div.labelsmall {
+    height: 25px;
+    max-width: 800px;
+    background: #dddddd;
+    border-radius: 4px;
+}
+
+body {
+    background: #fff;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.06);
+    color: #545454;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 2em 2em 4em;
+}
+
+div.smalltext {
+    font-size: 12px;
+}
+
+.border {
+    border: 1px solid #aaaaaa;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    vertical-align: middle;
+}
+
+.dark {
+    background: #eeeeee;
+    vertical-align: top;
+}
+
+input.sample {
+    width: 600px;
+    background: #f4f7c5;
+    padding: 4px;
+    margin-bottom: 5px;
+}
+
+input.type {
+    padding: 4px;
+    margin-bottom: 5px;
+}
+
+input.value {
+    width: 100px;
+    background: #f4f7c5;
+    padding: 4px;
+    margin-bottom: 5px;
+}
+
+input.upload {
+    width: 250px;
+    padding: 0px;
+    margin-bottom: 0px;
+}
+
+button.test {
+    color: white;
+    background-color: #206618;
+    font-size: 14px;
+    font-weight: 600;
+    border: 0px;
+    border-radius: 4px;
+    padding: 2px 6px;
+}
+
+button.clear {
+    color: #444444;
+    background-color: #dddddd;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid #444444;
+    border-radius: 4px;
+    padding: 2px 6px;
+}
+
+span.theader {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 2.0;
+}
+
+.f16 {
+    font-size: 16px;
+    line-height: 34px;
+    padding-left: 6px;
+}
+
+.f14 {
+    font-size: 14px;
+    line-height: 22px;
+    padding-left: 6px;
+}
+
+.f18b {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.tab { 
+    text-indent:20px 
+}
+
+button.help {
+    color: white;
+    background-color: blue;
+    font-size: 12px;
+    font-weight: 600;
+    border: 0px;
+    border-radius: 4px;
+    padding: 1px 4px;
+}
+
+div.label16 {
+    height: 34px;
+    max-width: 800px;
+    background: #dddddd;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+div.label14 {
+    height: 22px;
+    max-width: 800px;
+    background: #dddddd;
+    border-radius: 2px;
+}

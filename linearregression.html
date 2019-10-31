@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131282143-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-131282143-1');
+        </script>
+        
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>EZ Statistics: Linear Regression</title>
+        <meta name="description" content="EZ Linear Regression">
+        <link rel="stylesheet" href="style/stats.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="jstat.js"></script>
+        <script src="ezstatistics-0.30.js"></script>
+    </head>
+    <body>
+        <center><img class="round" src="style/logo.png" height="105"/></center>
+        <div style="text-align: right"><a href="index.html">Back to main page</a></div>
+        
+        <h3 class="f18b">Basic Linear Regression</h3>
+        Calculates the line of best fit between two samples.
+        <br>
+        
+        <div class="smalltext">
+            
+            <div class="label16">
+                <h3 class="f16">&nbsp;Data Entry</h3>
+            </div>
+            <br/>
+        
+            <table>
+                <tr>
+                    <td>Sample X:</td>
+                    <td><input class="sample" name="sampA" id="samp1" value="21, 34, 41, 43, 65, 72, 76, 84"></td>
+                <tr/>
+                <tr>
+                    <td>Sample Y:</td>
+                    <td><input class="sample" name="sampB" id="samp2" value="16, 11, 13, 14, 10, 12, 7, 7"></td>
+                <tr/>
+                <tr>
+                    <td>Significance level α:&nbsp;</td>
+                    <td><input class="value" name="alpha" id="alpha" value="0.05"></td>
+                </tr>
+                <tr>
+                    <td>Upload CSV file:</td>
+                    <td>
+                        <input type="file" name="File Upload" id="txtFileUpload" accept=".csv" />
+                    </td>
+                </tr>
+            </table>
+            
+            <br>
+            <button class="test" onclick="javascript:calc_linearregression()">Calculate</button>&nbsp;&nbsp;
+            <button class="clear" onclick="javascript:clear_fields(2)">Clear</button>
+
+            <div id="error">
+            </div>
+        
+            <div id="test_results" style="display: none;">
+                <div class="label16">
+                    <h3 class="f16">&nbsp;Result</h3>
+                </div>
+                <br/>
+
+                <table class="border">
+                    <thead>
+                        <tr>
+                            <th colspan=4 class="dark">Data Summary</th>
+                        </tr>
+                        <tr>
+                            <th class="dark" width="70">Sample</th>
+                            <th class="dark" width="40">N</th>
+                            <th class="dark" width="100">Mean</th>
+                            <th class="dark" width="100">Stdev</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th class="dark">A</th>
+                            <td class="border" id="n1">&nbsp;</td>
+                            <td class="border" id="mean1">&nbsp;</td>
+                            <td class="border" id="stdev1">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <th class="dark">B</th>
+                            <td class="border" id="n2">&nbsp;</td>
+                            <td class="border" id="mean2">&nbsp;</td>
+                            <td class="border" id="stdev2">&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br/>&nbsp;
+                <table class="border" width="550">
+                    <tbody>
+                        <tr>
+                            <td class="dark" width="190"><b>Significance level α:</b></td>
+                            <td class="border" id="sign_level">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="dark"><b>Line of best fit:</b></td>
+                            <td class="border" id="line">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="dark"><b>Coefficient of determination R<sup>2</sup>:</b></td>
+                            <td class="border" id="r2">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="dark"><b>P-value:</b></td>
+                            <td class="border" id="p">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="dark"><b>F-score:</b></td>
+                            <td class="border" id="score">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="dark"><b>Result:</b></td>
+                            <td class="border" id="res">&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div id="viz">
+                    <div class="label16">
+                        <h3 class="f16">&nbsp;Data Visualization</h3>
+                    </div>
+                    <div id="chart"></div>
+                </div>
+                
+            </div>
+        </div>
+    </body>
+</html>
+

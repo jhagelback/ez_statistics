@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131282143-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-131282143-1');
+        </script>
+        
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>EZ Statistics: Central Limit Theorem</title>
+        <meta name="description" content="EZ Statistics Central Limit Theorem">
+        <link rel="stylesheet" href="style/stats.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="jstat.js"></script>
+        <script src="ezstatistics-0.30.js"></script>
+    </head>
+    <body onload="reset()">
+        <center><img class="round" src="style/logo.png" height="105"/></center>
+        <div style="text-align: right"><a href="index.html">Back to main page</a></div>
+        
+        <h3 class="f18b">Demo of Central Limit Theorem</h3>
+
+        <div class="smalltext">
+            
+            The <a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank">central limit theorem</a> states that, in some situations, when independent random variables are
+            added, their sum tends towards a normal distribution even if the variables themselves are not normally distributed. We can illustrate this with dices. With a single dice, the 
+            propability of getting each value is equal. The single dice follows a uniform distribution. If we have two dices and calculates the sum, the probability of getting each possible 
+            sum is however different. We can only get a sum of 2 if we roll two 1's, but there are more combinations for getting a sum of 6. The table below shows the number of combinations for 
+            rolling two six-sided dices (resulting in a sum between 2 and 12). If we plot the number of combinations in a bar chart (seen to the right), the distribution almost resembles a 
+            normal distribution. If we increase the number of dices, the distribution will more and more approach the normal distribution.<br>&nbsp;
+            
+            <table><tr><td width="280">
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th class="dark" width="50">Sum</th>
+                        <th class="dark" width="40">N</th>
+                        <th class="dark" width="150">Combinations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="border">2</td>
+                        <td class="border">1</td>
+                        <td class="border">1,1</td>
+                    </tr>
+                    <tr>
+                        <td class="border">3</td>
+                        <td class="border">2</td>
+                        <td class="border">1,2 2,1</td>
+                    </tr>
+                    <tr>
+                        <td class="border">4</td>
+                        <td class="border">3</td>
+                        <td class="border">2,2 1,3 3,1</td>
+                    </tr>
+                    <tr>
+                        <td class="border">5</td>
+                        <td class="border">4</td>
+                        <td class="border">2,3 3,2 1,4 4,1</td>
+                    </tr>
+                    <tr>
+                        <td class="border">6</td>
+                        <td class="border">5</td>
+                        <td class="border">2,4 4,2 3,3 1,5 5,1</td>
+                    </tr>
+                    <tr>
+                        <td class="border">7</td>
+                        <td class="border">6</td>
+                        <td class="border">3,4 4,3 2,5 5,2 1,6 6,1</td>
+                    </tr>
+                    <tr>
+                        <td class="border">8</td>
+                        <td class="border">5</td>
+                        <td class="border">3,5 5,3 4,4 2,6 6,2</td>
+                    </tr>
+                    <tr>
+                        <td class="border">9</td>
+                        <td class="border">4</td>
+                        <td class="border">4,5 5,4 3,6 6,3</td>
+                    </tr>
+                    <tr>
+                        <td class="border">10</td>
+                        <td class="border">3</td>
+                        <td class="border">5,5 4,6 6,4</td>
+                    </tr>
+                    <tr>
+                        <td class="border">11</td>
+                        <td class="border">2</td>
+                        <td class="border">5,6 6,5</td>
+                    </tr>
+                    <tr>
+                        <td class="border">12</td>
+                        <td class="border">1</td>
+                        <td class="border">6,6</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            </td><td style="vertical-align: middle;"><img src="ex.png" width="450"></td></tr></table>
+            
+            <br>
+            In this demonstration we will use five six-sided dices, each dice following a uniform distribution, resulting in sums between 6 and 30. The number of times
+            each sum is drawn is shown in a bar chart. Note that the x-axis is shifted to the left so the bar chart is centered around <em>x = 0</em>.
+            <br>&nbsp;<br>
+            Each time you click the <b>Update</b> button, 1000 random samples will be drawn. Each random sample consists of rolling the five dices and calculate the sum, 
+            and increase the number of times the sum is drawn in the bar chart. The more samples that are drawn, the more the distribution will look like the normal distribution 
+            even if each dice follows another (uniform) distribution. This is what the Central Limit Theorem tells us.
+            <br>&nbsp;
+            
+            <table>
+                <tr>
+                    <td width="120"><button class="test" onclick="javascript:iterate()">Update</button></td>
+                    <td>&nbsp;</td>
+                    <td width="100">Samples drawn:</td>
+                    <td class="border" width="60" id="no">0</td>
+                    <td width="200"></td>
+                    <td><button class="clear" onclick="javascript:reset()">Reset</button></td>
+                <tr/>
+            </table>
+            
+            <br>
+            
+            <div id="error">
+            </div>
+            
+            <div id="viz">
+                
+                <div id="chart"></div>
+            
+                <br>
+                
+            </div>
+        </div>
+    </body>
+</html>
+

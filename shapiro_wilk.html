@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131282143-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-131282143-1');
+        </script>
+        
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>EZ Statistics: Shapiro-Wilk</title>
+        <meta name="description" content="EZ Statistics shapiro-wilk">
+        <link rel="stylesheet" href="style/stats.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="jstat.js"></script>
+        <script src="ezstatistics-0.30.js"></script>
+    </head>
+    <body>
+        <center><img class="round" src="style/logo.png" height="105"/></center>
+        <div style="text-align: right"><a href="index.html">Back to main page</a></div>
+        
+        <h3 class="f18b">Shapiro-Wilk Expanded test for normally distributed sample</h3>
+        The test is accurate for sample sizes between 12 and 5000, although sample sizes of at least 20 are recommended. You can run the test for 10 or more samples.
+        You can read more about the test at <a href="http://www.real-statistics.com/tests-normality-and-symmetry/statistical-tests-normality-symmetry/shapiro-wilk-expanded-test/" target="_blank">Real Statistics</a>.
+        You can also read about skewness and kurtosis at <a href="http://www.real-statistics.com/descriptive-statistics/symmetry-skewness-kurtosis/" target="_blank">Real Statistics</a>.
+        
+        <br>&nbsp;<br>
+        Tests the hypotheses:
+        <table>
+            <tr>
+                <th class="dark" width="30">H<sub>0</sub></th>
+                <td class="border">The sample is normally distributed&nbsp;&nbsp;</td>
+            </tr>
+            <tr>
+                <th class="dark">H<sub>1</sub></th>
+                <td class="border">The sample is not normally distributed&nbsp;&nbsp;</td>
+            </tr>
+        </table>
+        
+        <div class="smalltext">
+            
+            <div class="label16">
+                <h3 class="f16">&nbsp;Data Entry</h3>
+            </div>
+            <br/>
+        
+            <table>
+                <tr>
+                    <td>Sample A:</td>
+                    <td><input class="sample" name="sampA" id="samp1" value="65, 61, 63, 86, 70, 55, 74, 35, 72, 68, 45, 58"></td>
+                <tr/>
+                <tr>
+                    <td>Significance level α:&nbsp;</td>
+                    <td><input class="value" name="alpha" id="alpha" value="0.05"></td>
+                </tr>
+                <tr>
+                    <td>Upload CSV file:</td>
+                    <td>
+                        <input type="file" name="File Upload" id="txtFileUpload" accept=".csv" />
+                    </td>
+                </tr>
+            </table>
+            
+            <br>
+            <button class="test" onclick="javascript:run_shapirowilk()">Run Test</button>&nbsp;&nbsp;
+            <button class="clear" onclick="javascript:clear_fields(1)">Clear</button>
+
+            <div id="error">
+            </div>
+        
+            <div id="test_results" style="display: none;">
+                <div class="label16">
+                    <h3 class="f16">&nbsp;Test Result&nbsp;&nbsp;&nbsp;&nbsp;<button class="help" onclick="javascript:toggle('help')";>?</button></h3>
+                </div>
+                <div id="help" style="display: none;">
+                    <br>
+                    Skewness is a measure of symmetry. A skewness close to 0 means that the distribution is symmetric. A
+                    negative skewness means the distribution is skewed to the left (the bulk of the histogram is to the right), a positive that is is skewed to the 
+                    right (the bulk of the histogram is to the left).
+                    Since the normal distribution is symmetric, a normally distributed sample should have a skewness close to 0.
+                    <p class="tab">Kurtosis is a measurement about the extremities (tails) of the distribution. The normal distribution
+                    has a kurtosis of 0, so a normally distributed sample should also have a kurtosis close to 0.</p>
+                </div>
+                <br/>
+
+                <table class="border">
+                    <thead>
+                        <tr>
+                            <th colspan=4 class="dark">Data Summary</th>
+                        </tr>
+                        <tr>
+                            <th class="dark" width="70">Sample</th>
+                            <th class="dark" width="40">N</th>
+                            <th class="dark" width="100">Mean</th>
+                            <th class="dark" width="100">Stdev</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th class="dark">A</th>
+                            <td class="border" id="n1">&nbsp;</td>
+                            <td class="border" id="mean1">&nbsp;</td>
+                            <td class="border" id="stdev1">&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br/>&nbsp;
+                <table class="border">
+                    <thead>
+                        <tr>
+                            <th class="dark" width="550" colspan="2">Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="dark" width="130"><b>Significance level α:</b></td>
+                            <td class="border" width="420" id="sign_level">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="dark"><b>P-value:</b></td>
+                            <td class="border" id="p">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="dark"><b>Z-score:</b></td>
+                            <td class="border" id="z">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="dark"><b>W-statistic:</b></td>
+                            <td class="border" id="w">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="dark"><b>Skew:</b></td>
+                            <td class="border" id="skew">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="dark"><b>Kurtosis:</b></td>
+                            <td class="border" id="kurtosis">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="dark"><b>Result:</b></td>
+                            <td class="border" id="res">&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div id="viz">
+                    <div class="label16">
+                        <h3 class="f16">&nbsp;Data Visualization</h3>
+                    </div>
+                    <div id="chart"></div>
+                    <br>
+                    <div id="hist"></div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131282143-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-131282143-1');
+        </script>
+        
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>EZ Statistics: Repeated Measures ANOVA</title>
+        <meta name="description" content="EZ Statistics Repeated Measures ANOVA">
+        <link rel="stylesheet" href="style/stats.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="jstat.js"></script>
+        <script src="ezstatistics-0.30.js"></script>
+    </head>
+    <body>
+        <center><img class="round" src="style/logo.png" height="105"/></center>
+        <div style="text-align: right"><a href="index.html">Back to main page</a></div>
+        
+        <h3 class="f18b">Repeated Measures Analysis of Variance (ANOVA)</h3>
+        Requires that the samples are related (dependent) and normally distributed. You can read more about the test
+        at <a href="https://statistics.laerd.com/statistical-guides/repeated-measures-anova-statistical-guide.php" target="_blank">Laerd Statistics</a>
+        or <a href="http://www.real-statistics.com/anova-repeated-measures/repeated-measures-anova-tool/" target="_blank">Real Statistics</a>.
+        <br>&nbsp;<br>
+        Tests the hypotheses:
+        <table>
+            <tr>
+                <th class="dark" width="30">H<sub>0</sub></th>
+                <td class="border">The means of the samples are equal&nbsp;&nbsp;</td>
+            </tr>
+            <tr>
+                <th class="dark">H<sub>1</sub></th>
+                <td class="border">The means of the samples are different&nbsp;&nbsp;</td>
+            </tr>
+        </table>
+        
+        <div class="smalltext">
+            
+            <div class="label16">
+                <h3 class="f16">&nbsp;Data Entry</h3>
+            </div>
+            <br/>
+        
+            <table>
+                <tr>
+                    <td width="110">No samples:</td>
+                    <td><input class="value" name="no" id="no" value="4">&nbsp;&nbsp;<button onclick="javascript:update_no_samples()">Update</button></td>
+                </tr>
+            </table>
+            <table id="samples">
+                <tr>
+                    <td width="110">Sample A:</td>
+                    <td><input class="sample" name="sampA" id="samp1" value="16,12,23,8,3,5,19,22,12,16,14,24,9,3,2"></td>
+                </tr>
+                <tr>
+                    <td width="110">Sample B:</td>
+                    <td><input class="sample" name="sampB" id="samp2" value="22,18,24,20,12,13,22,22,20,22,25,26,12,9,8"></td>
+                </tr>
+                <tr>
+                    <td width="110">Sample C:</td>
+                    <td><input class="sample" name="sampC" id="samp3" value="23,24,26,28,13,11,25,23,22,26,18,21,20,13,6"></td>
+                </tr>
+                <tr>
+                    <td width="110">Sample D:</td>
+                    <td><input class="sample" name="sampD" id="samp4" value="25,29,27,30,17,15,26,26,24,29,21,23,23,16,10"></td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td width="110">Significance level α</td>
+                    <td><input class="value" name="alpha" id="alpha" value="0.05"></td>
+                </tr>
+                <tr>
+                    <td width="110">Upload CSV file:</td>
+                    <td>
+                        <input type="file" name="File Upload" id="txtFileUpload" accept=".csv" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="110">Post-test:</td>
+                    <td>
+                        <select name="posttest" id="posttest">
+                            <option value="tukeys">Tukey's HSD</option>
+                        </select>
+                        &nbsp;&nbsp;
+                        Correction:&nbsp;
+                        <select name="correction" id="correction">
+                            <option value="none">None</option>
+                            <option value="bonferroni">Bonferroni</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            
+            <br>
+            <button class="test" onclick="javascript:run_rm_anova()">Run Test</button>&nbsp;&nbsp;
+            <button class="clear" onclick="javascript:clear_fields(-1)">Clear</button>
+
+            <div id="error">
+            </div>
+        
+            <div id="test_results" style="display: none;">
+                <div class="label16">
+                    <h3 class="f16">&nbsp;Test Result</h3>
+                </div>
+                <br/>
+
+                <table class="border">
+                    <thead>
+                        <tr>
+                            <th colspan=4 class="dark">Data Summary</th>
+                        </tr>
+                        <tr>
+                            <th class="dark" width="70">Sample</th>
+                            <th class="dark" width="40">N</th>
+                            <th class="dark" width="100">Mean</th>
+                            <th class="dark" width="100">Stdev</th>
+                        </tr>
+                    </thead>
+                    <tbody id ="summary">
+                        <tr>
+                            <th class="dark">A</th>
+                            <td class="border" id="n1">&nbsp;</td>
+                            <td class="border" id="mean1">&nbsp;</td>
+                            <td class="border" id="stdev1">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <th class="dark">B</th>
+                            <td class="border" id="n2">&nbsp;</td>
+                            <td class="border" id="mean2">&nbsp;</td>
+                            <td class="border" id="stdev2">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <th class="dark">C</th>
+                            <td class="border" id="n3">&nbsp;</td>
+                            <td class="border" id="mean3">&nbsp;</td>
+                            <td class="border" id="stdev3">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <th class="dark">D</th>
+                            <td class="border" id="n4">&nbsp;</td>
+                            <td class="border" id="mean4">&nbsp;</td>
+                            <td class="border" id="stdev4">&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>&nbsp;
+                <table class="border">
+                    <thead>
+                        <tr>
+                            <th class="dark" width="550" colspan="2">Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="dark" width="130"><b>Significance level α:</b></td>
+                            <td class="border" width="420" id="sign_level">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="dark"><b>P-value:</b></td>
+                            <td class="border" id="p">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="dark"><b>F-score:</b></td>
+                            <td class="border" id="f">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="dark"><b>Result:</b></td>
+                            <td class="border" id="res">&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                    
+                <div id="postres">
+                    <div class="label16">
+                        <h3 class="f16">&nbsp;Post-test</h3>
+                    </div>
+                    <br/>
+                    The post-test shows which pairs of samples that have different means (if any).
+
+                    <div id="post">
+                    </div>
+                </div>
+                
+                <div id="assumptions">
+                    <div class="label16">
+                        <h3 class="f16">&nbsp;Check test assumptions&nbsp;&nbsp;&nbsp;&nbsp;<button class="help" onclick="javascript:toggle('ashelp')";>?</button></h3>
+                    </div>
+                    <div id="ashelp" style="display: none;">
+                        <br>
+                        The samples should be normally distributed. If not, consider using the <a href="friedman.html">Friedman test</a> instead.
+                        Note that the normality test is not entirely accurate for sample sizes under 20.
+                    </div>
+                    &nbsp;<br>
+                    
+                    <div id="normtest">
+                        <table class="border">
+                            <thead>
+                                <tr>
+                                    <th class="dark" width="550" colspan="2">Shapiro-Wilk test for normally distributed samples</th>
+                                </tr>
+                            </thead>
+                            <tbody id="normtest_cont">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div id="viz">
+                    <div class="label16">
+                        <h3 class="f16">&nbsp;Data Visualization</h3>
+                    </div>
+                    <div id="chart"></div>
+                </div>
+                
+            </div>
+        </div>
+    </body>
+</html>
+
