@@ -33,6 +33,7 @@ function get_float(id) {
 
 /**
     Generates and visualizes the t-distribution.
+    See: dist_t.html
 */
 function dist_t() {
     try {
@@ -76,6 +77,7 @@ function dist_t() {
 
 /**
     Generates and visualizes the normal distribution.
+    See: dist_norm.html
 */
 function dist_norm() {
     try {
@@ -125,6 +127,7 @@ function dist_norm() {
 
 /**
     Generates and visualizes the F-distribution.
+    See: dist_f.html
 */
 function dist_f() {
     try {
@@ -173,6 +176,7 @@ function dist_f() {
 
 /**
     Generates and visualizes the Chi-Square distribution.
+    See: dist_chi2.html
 */
 function dist_chi2() {
     try {

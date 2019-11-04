@@ -5,6 +5,10 @@ Main functions for running statistical tests.
 
 ******************************************************/
 
+/**
+    Global status texts.
+*/
+
 // 2 samples, 2 sided
 var diff_2p_2s = "<font color='green'>The means of the samples are different</font>";
 var nodiff_2p_2s = "<font color='red'>There is no difference between the means of the samples</font>";
@@ -45,6 +49,10 @@ var not_norm_dist = "<font color='red'>The sample is not normally distributed</f
 var corr_sign = "<font color='green'>There is a relationship between the samples</font>";
 var corr_not_sign = "<font color='red'>There is no relationship between the samples</font>";
 
+/**
+    Runs the calculate confidence intervals test.
+    See: confintervals.html
+*/
 function calc_confidence_intervals() {
     // Clear error
     clear_error();
@@ -99,6 +107,10 @@ function calc_confidence_intervals() {
     }
 }
 
+/**
+    Runs the correlation test.
+    See: correlation.html
+*/
 function calc_correlation() {
     // Clear error
     clear_error();
@@ -175,6 +187,10 @@ function calc_correlation() {
     }
 }
 
+/**
+    Runs the linear regression test.
+    See: linearregression.html
+*/
 function calc_linearregression() {
     // Clear error
     clear_error();
@@ -225,6 +241,10 @@ function calc_linearregression() {
     }
 }
 
+/**
+    Runs the ESD test to find outliers.
+    See: outliers.html
+*/
 function find_outliers() {
     // Clear error
     clear_error();
@@ -306,6 +326,10 @@ function find_outliers() {
     }
 }
 
+/**
+    Runs the two-sample t-tests.
+    See: ttest.html
+*/
 function run_ttest() {
     // Clear error
     clear_error();
@@ -440,6 +464,9 @@ function run_ttest() {
     }
 }
 
+/**
+    Helper function for showing t-test scores.
+*/
 function ttest_score(res, sides, tail, id) {
     if (sides == 2) {
         document.getElementById(id).innerHTML = res[1].toFixed(2) + "<br>Reject H<sub>0</sub> (accept H<sub>1</sub>) if T is outside ±" + res[2].toFixed(2);
@@ -452,6 +479,10 @@ function ttest_score(res, sides, tail, id) {
     }
 }
 
+/**
+    Runs the two-sample Wilcoxon tests.
+    See: wilcoxon.html
+*/
 function run_wilcoxon() {
     // Clear error
     clear_error();
@@ -568,6 +599,9 @@ function run_wilcoxon() {
     }
 }
 
+/**
+    Helper function for showing the Wilcoxon scores.
+*/
 function wilcoxon_score(res, sides, tail, type, id) {
     // Rank-sum
     if (type == 1) {
@@ -609,6 +643,10 @@ function wilcoxon_score(res, sides, tail, type, id) {
     }
 } 
 
+/**
+    Runs the One-way ANOVA test.
+    See: anova.html
+*/
 function run_anova() {
     try {
         // Clear error
@@ -752,6 +790,10 @@ function run_anova() {
     }
 }
 
+/**
+    Runs the Repeated Measures ANOVA test.
+    See: anova_rm.html
+*/
 function run_rm_anova() {
     try {
         // Clear error
@@ -873,6 +915,10 @@ function run_rm_anova() {
     }
 }
 
+/**
+    Runs the Kruskal-Wallis test.
+    See: kruskalwallis.html
+*/
 function run_kruskalwallis() {
     try {
         // Clear error
@@ -1008,6 +1054,10 @@ function run_kruskalwallis() {
     }
 }
 
+/**
+    Runs the Friedman test.
+    See: friedman.html
+*/
 function run_friedman() {
     try {
         // Clear error
@@ -1132,6 +1182,10 @@ function run_friedman() {
     }
 }
 
+/**
+    Runs the single-sample t-test.
+    See: ttest_single.html
+*/
 function run_ttest_single() {
     // Clear error
     clear_error();
@@ -1229,6 +1283,10 @@ function run_ttest_single() {
     }
 }
 
+/**
+    Runs the single-sample Wilcoxon test.
+    See: wilcoxon_single.html
+*/
 function run_wilcoxon_single() {
     // Clear error
     clear_error();
@@ -1326,6 +1384,10 @@ function run_wilcoxon_single() {
     }
 }
 
+/**
+    Runs the F-test for equal variances.
+    See: ftest.html
+*/
 function run_ftest() {
     // Clear error
     clear_error();
@@ -1369,6 +1431,10 @@ function run_ftest() {
     }
 }
 
+/**
+    Runs the Bartlett's test for equal variances.
+    See: bartlett.html
+*/
 function run_bartlett() {
     try {
         // Clear error
@@ -1417,6 +1483,9 @@ function run_bartlett() {
 }
 
 /**
+    Runs the Shapiro-Wilk Expanded test for normality check.
+    See: shapiro_wilk.html
+
     See explanation and example here:
     http://www.real-statistics.com/tests-normality-and-symmetry/statistical-tests-normality-symmetry/shapiro-wilk-expanded-test/
 */
