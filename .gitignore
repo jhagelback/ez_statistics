@@ -2,4 +2,5 @@ docs/
 R/
 *.csv
 *.txt
+.DS_Store
 
