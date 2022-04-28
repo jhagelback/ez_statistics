@@ -3,7 +3,7 @@
 ### About
 EZ Statistics is a web tool for running statistical tests written in JavaScript. It supports a range of the most commonly used parametric and non-parametric tests. 
 
-You can try it out [here](http://aiguy.org/ez_statistics/index.html).
+You can try it out [here](http://aiguy.freecluster.eu/ez_statistics/index.html).
 
 ### Running it locally
 EZ Statistics runs entirely in the browser and doesn't need a web server. Just open the html files in a browser to run it locally.
